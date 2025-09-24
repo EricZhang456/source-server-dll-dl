@@ -1,0 +1,17 @@
+FROM node:22-alpine
+
+ENV PORT=3000
+ENV DLL_DOWNLOAD_LOCATION="./dll/"
+
+WORKDIR /app
+
+COPY package.json /app/package.json
+COPY package-lock.json /app/package-lock.json
+RUN npm ci
+COPY . /app
+
+CMD [ "npm", "run", "prod" ]
+
+VOLUME [ "/app/data" ]
+
+EXPOSE 3000

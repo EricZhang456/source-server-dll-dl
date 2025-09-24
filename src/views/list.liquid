@@ -6,18 +6,29 @@
 
 {% block body %}
 <main>
-    <h1>Source Server DLL Downloads</h1>
+    <h1 class="main-title">Source Server DLL Downloads</h1>
     {% for obj in manifests %}
-    <section>
-        <h3>{{ obj.game.name }}</h3>
-        <p>Last updated: {{ obj.dl.last_modified_date | date: "%b %d, %Y" }}</p>
-        <a href="/dl/{{ obj.game.id }}/linux/{{ obj.game.server_dll_name.linux }}">Linux (32-bit)</a>
-        <a href="/dl/{{ obj.game.id }}/windows/{{ obj.game.server_dll_name.windows }}">Windows (32-bit)</a>
-        {% if obj.game.supports_64bit %}
-        <a href="/dl/{{ obj.game.id }}/linux64/{{ obj.game.server_dll_name.linux }}">Linux (64-bit)</a>
-        <a href="/dl/{{ obj.game.id }}/windows64/{{ obj.game.server_dll_name.windows }}">Windows (64-bit)</a>
+    <section class="download">
+        <div class="download-section"></div>
+            <h3 class="download-header">{{ obj.game.name }}</h3>
+        </div>
+        <div class="download-section">
+            <p class="download-date">
+                Last updated: <time datetime="{{ obj.dl.last_modified_date | date: "%Y-%m-%dT%H:%M:%SZ" }}">{{ obj.dl.last_modified_date | date: "%b %d, %Y" }}</time>
+            </p>
+        </div>
+        <div class="download-section">
+            <a class="download-link" href="/dl/{{ obj.game.id }}/linux/{{ obj.game.server_dll_name.linux }}">Linux (32-bit)</a>
+            <a class="download-link" href="/dl/{{ obj.game.id }}/windows/{{ obj.game.server_dll_name.windows }}">Windows (32-bit)</a>
+            {% if obj.game.supports_64bit %}
+            <a class="download-link" href="/dl/{{ obj.game.id }}/linux64/{{ obj.game.server_dll_name.linux }}">Linux (64-bit)</a>
+            <a class="download-link" href="/dl/{{ obj.game.id }}/windows64/{{ obj.game.server_dll_name.windows }}">Windows (64-bit)</a>
         {% endif %}
+        </div>
     </section>
     {% endfor %}
+    <div class="src-code">
+        <a href="https://github.com/EricZhang456/source-server-dll-dl">Source code for this site</a>
+    </div>
 </main>
 {% endblock %}

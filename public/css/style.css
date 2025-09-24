@@ -1,5 +1,41 @@
 * {
-    border: 0;
     padding: 0;
+    margin: 0;
     box-sizing: border-box;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+main {
+    max-width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+h1.main-title {
+    margin-block: 30px;
+    margin-left: 20px
+}
+
+section.download {
+    padding-inline: 20px;
+    padding-block: 10px;
+    margin-block: 10px;
+    background-color: rgba(128, 128, 128, 0.2);
+}
+
+div.download-section {
+    margin-block: 5px;
+}
+
+a {
+    text-decoration: none;
+    color: #3366CC;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+div.src-code {
+    margin-top: 30px;
 }

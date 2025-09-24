@@ -1,0 +1,20 @@
+{
+    "id": "l4d",
+    "name": "Left 4 Dead",
+    "appid": 500,
+    "ds_appid": 222840,
+    "login": false,
+    "supports_64bit": false,
+    "dll_depot": {
+        "windows": 222842,
+        "linux": 222843
+    },
+    "server_dll_location": {
+        "linux": "left4dead/bin/server.so",
+        "windows": "left4dead/bin/server.dll"
+    },
+    "server_dll_name": {
+        "linux": "server.so",
+        "windows": "server.dll"
+    }
+}

@@ -1,0 +1,20 @@
+{
+    "id": "gmod",
+    "name": "Garry's Mod",
+    "appid": 4000,
+    "ds_appid": 4020,
+    "login": false,
+    "supports_64bit": false,
+    "dll_depot": {
+        "windows": 4022,
+        "linux": 4023
+    },
+    "server_dll_location": {
+        "linux": "garrysmod/bin/server_srv.so",
+        "windows": "garrysmod/bin/server.dll"
+    },
+    "server_dll_name": {
+        "linux": "server_srv.so",
+        "windows": "server.dll"
+    }
+}

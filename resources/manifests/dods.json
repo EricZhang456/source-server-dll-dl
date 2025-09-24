@@ -1,0 +1,22 @@
+{
+    "id": "dods",
+    "name": "Day of Defeat: Source",
+    "appid": 300,
+    "ds_appid": 232290,
+    "login": false,
+    "supports_64bit": true,
+    "dll_depot": {
+        "windows": 232295,
+        "linux": 232296
+    },
+    "server_dll_location": {
+        "linux": "dod/bin/server_srv.so",
+        "linux64": "dod/bin/linux64/server_srv.so",
+        "windows": "dod/bin/server.dll",
+        "windows64": "dod/bin/x64/server.dll"
+    },
+    "server_dll_name": {
+        "linux": "server_srv.so",
+        "windows": "server.dll"
+    }
+}

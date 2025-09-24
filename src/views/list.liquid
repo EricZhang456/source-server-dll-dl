@@ -1,7 +1,23 @@
 {% layout "base.liquid" %}
 
 {% block head %}
+<title>Source Server DLL Download</title>
 {% endblock %}
 
 {% block body %}
+<main>
+    <h1>Source Server DLL Downloads</h1>
+    {% for obj in manifests %}
+    <section>
+        <h3>{{ obj.game.name }}</h3>
+        <p>Last updated: {{ obj.dl.last_modified_date | date: "%b %d, %Y" }}</p>
+        <a href="/dl/{{ obj.game.id }}/linux/{{ obj.server_dll_name.linux }}">Linux (32-bit)</a>
+        <a href="/dl/{{ obj.game.id }}/windows/{{ obj.server_dll_name.windows }}">Windows (32-bit)</a>
+        {% if obj.game.supports_64bit %}
+        <a href="/dl/{{ obj.game.id }}/linux64/{{ obj.server_dll_name.linux }}">Linux (64-bit)</a>
+        <a href="/dl/{{ obj.game.id }}/windows64/{{ obj.server_dll_name.windows }}">Windows (64-bit)</a>
+        {% endif %}
+    </section>
+    {% endfor %}
+</main>
 {% endblock %}

@@ -8,21 +8,18 @@ import DLLDownloader from "./dlldownloader.js";
 
 const baseDir = path.join(path.dirname(fileURLToPath(import.meta.url)), "../../");
 const manifestDir = path.join(baseDir, "resources", "manifests");
-const dllDownloadDir = path.join(baseDir, process.env.DLL_DOWNLOAD_LOCATION);
-const downloadManifestPath = path.join(dllDownloadDir, "manifest.json");
 
 export default async function dllDownloadTask() {
+    const dllDownloadDir = path.join(baseDir, process.env.DLL_DOWNLOAD_LOCATION);
+    const downloadManifestPath = path.join(dllDownloadDir, "manifest.json");
     // TODO: Download log in required DLLs as well.
     const dllDownloader = new DLLDownloader();
     /** @type {DownloadManifest[]} */
     let downloadManifest = [];
     if (existsSync(downloadManifestPath)) {
-        downloadManifest = JSON.parse(await fs.readFile(downloadManifestPath, "utf-8"), (key, value) => {
-            if (key === "last_modified_date") {
-                return new Date(value);
-            } 
-            return value;
-        });
+        downloadManifest = JSON.parse(await fs.readFile(downloadManifestPath, "utf-8"), (key, value) =>
+            key === "last_modified_date" ? new Date(value) : value
+        );
     }
     const manifestFiles = await fs.readdir(manifestDir);
     /** @type {GameManifest[]} */
@@ -60,5 +57,3 @@ export default async function dllDownloadTask() {
     await fs.writeFile(downloadManifestPath, JSON.stringify(downloadManifest));
     await dllDownloader.logOff(); 
 }
-
-dllDownloadTask();

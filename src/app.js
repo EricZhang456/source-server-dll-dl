@@ -3,20 +3,26 @@ import createError from "http-errors";
 import express, { json, urlencoded } from "express";
 import path from "path";
 import fs from "fs";
+import { fileURLToPath } from 'url';
 import cookieParser from "cookie-parser";
 import logger from "morgan";
 import schedule from "node-schedule";
 import { Liquid } from "liquidjs";
 
 import routes from "./routes/routes.js";
-
-const app = express();
-const liquid = new Liquid();
-const __dirname = path.join(import.meta.dirname, "../");
+import dllDownloadTask from "./utils/dlldownloadtask.js";
 
 dotenv.config();
 
+const app = express();
+const liquid = new Liquid();
+const __dirname = path.join(path.dirname(fileURLToPath(import.meta.url)), "../");
+
+await dllDownloadTask();
+schedule.scheduleJob("0 0 * * 0", async() => await dllDownloadTask());
+
 const dllDownloadDir = path.join(__dirname, process.env.DLL_DOWNLOAD_LOCATION);
+app.locals.dllDownloadDir = dllDownloadDir;
 if (!fs.existsSync(dllDownloadDir)) {
     fs.mkdirSync(dllDownloadDir);
 }
@@ -31,7 +37,6 @@ app.use(json());
 app.use(urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
-app.use(express.static(dllDownloadDir));
 
 routes.forEach((value, key) => app.use(value, key));
 

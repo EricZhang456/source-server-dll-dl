@@ -1,3 +1,5 @@
+import { platforms } from "./dlldownloader.js";
+
 // JSON
 
 /**

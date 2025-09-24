@@ -1,3 +1,5 @@
+# FIXME: only works when the container is in host mode
+
 FROM node:22-alpine
 
 ENV PORT=3000

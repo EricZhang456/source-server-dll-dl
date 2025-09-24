@@ -184,6 +184,7 @@ export default class DLLDownloader {
             };
         });
 
+        // only run 2 at a time cuz steam doesn't like it when you dos their servers
         const downloads = await runWithConcurrencyLimit(tasks, manifests.length > 2 ? 2 : manifests.length);
         return downloads;
     }

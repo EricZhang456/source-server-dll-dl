@@ -2,7 +2,7 @@
 
 /**
  * Run with a limit on how many tasks can be run at a time.
- * @param {Promise<any>} tasks 
+ * @param {Promise<any[]>} tasks 
  * @param {number} limit 
  * @returns {Promise<any[]>}
  */

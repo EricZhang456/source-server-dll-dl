@@ -4,6 +4,8 @@ import fs from "fs/promises";
 import path from "path";
 import SteamUser from "steam-user";
 
+import { runWithConcurrencyLimit } from "./asynclimiter.js";
+
 /**
  * Steam sign on options.
  * @typedef {object} SignOnOptions
@@ -155,7 +157,7 @@ export default class DLLDownloader {
      */
 
     async batchDownloadDlls(manifests, organizeByDate = false, targetDir, branchName = "public") {
-        const downloads = await Promise.all(manifests.map(async (obj) => {
+        const tasks = manifests.map((obj) => async () => {
             const targetPlatforms = obj.supports_64bit ? Object.values(platforms)
                                                        : [platforms.WINDOWS, platforms.LINUX];
             const platformResults = await Promise.all(targetPlatforms.map(async (platform) => {
@@ -180,7 +182,9 @@ export default class DLLDownloader {
                 gameId: obj.id,
                 result: platformResults,
             };
-        }));
+        });
+
+        const downloads = await runWithConcurrencyLimit(tasks, manifests.length > 2 ? 2 : manifests.length);
         return downloads;
     }
 }

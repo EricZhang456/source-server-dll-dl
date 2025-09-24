@@ -14,6 +14,6 @@ COPY . /app
 
 CMD [ "npm", "run", "prod" ]
 
-VOLUME [ "/app/data" ]
+VOLUME [ "/app/dll" ]
 
 EXPOSE 3000

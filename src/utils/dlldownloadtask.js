@@ -16,10 +16,14 @@ export default async function dllDownloadTask() {
     const dllDownloader = new DLLDownloader();
     /** @type {DownloadManifest[]} */
     let downloadManifest = [];
-    if (existsSync(downloadManifestPath)) {
+    try {    
         downloadManifest = JSON.parse(await fs.readFile(downloadManifestPath, "utf-8"), (key, value) =>
             key === "last_modified_date" ? new Date(value) : value
         );
+    } catch (error) {
+        if (!error.code === "ENOENT") {
+            throw error;
+        }
     }
     const manifestFiles = await fs.readdir(manifestDir);
     /** @type {GameManifest[]} */

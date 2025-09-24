@@ -18,7 +18,7 @@ const app = express();
 const liquid = new Liquid();
 const __dirname = path.join(path.dirname(fileURLToPath(import.meta.url)), "../");
 
-await dllDownloadTask();
+dllDownloadTask().then();
 schedule.scheduleJob("0 0 * * 0", async() => await dllDownloadTask());
 
 const dllDownloadDir = path.join(__dirname, process.env.DLL_DOWNLOAD_LOCATION);

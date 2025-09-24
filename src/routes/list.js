@@ -1,6 +1,7 @@
 /** /list view */
 
 /** @import { DownloadManifest, GameManifest } from "../utils/manifest_typedef.d.ts" */
+
 import fs from "fs/promises";
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -19,8 +20,17 @@ const manifestDir = path.join(baseDir, "resources", "manifests");
 router.get("/", async (req, res) => {
     /** @type {DLContext[]} */
     const resContext = [];
+    let dlManifestFile = "";
+    try {
+        dlManifestFile = await fs.readFile(path.join(req.app.locals.dllDownloadDir, "manifest.json"), "utf-8");
+    } catch (error) {
+        if (error.code === "ENOENT") {
+            res.send("Manifest file has not been propagated yet.");
+            return;
+        }
+    }
     /** @type {DownloadManifest[]} */
-    const dlManifest = JSON.parse(await fs.readFile(path.join(req.app.locals.dllDownloadDir, "manifest.json"), "utf-8"), (key, value) =>
+    const dlManifest = JSON.parse(dlManifestFile, (key, value) =>
         key === "last_modified_date" ? new Date(value) : value
     );
     /** @type {GameManifest[]} */

@@ -1,0 +1,23 @@
+{
+  "name": "source-server-dll-dl",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node ./bin/www",
+    "prod": "cross-env NODE_ENV=production node ./bin/www"
+  },
+  "dependencies": {
+    "@libsql/client": "^0.15.15",
+    "cookie-parser": "~1.4.4",
+    "cross-env": "^10.0.0",
+    "debug": "~2.6.9",
+    "dotenv": "^17.2.2",
+    "express": "^4.21.2",
+    "http-errors": "~1.6.3",
+    "liquidjs": "^10.21.1",
+    "mariadb": "^3.4.5",
+    "morgan": "^1.10.1",
+    "steam-user": "^5.2.3"
+  }
+}

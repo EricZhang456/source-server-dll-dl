@@ -1,0 +1,22 @@
+{
+    "id": "tf2",
+    "name": "Team Fortress 2",
+    "appid": 440,
+    "ds_appid": 232250,
+    "login": false,
+    "supports_64bit": true,
+    "dll_depot": {
+        "windows": 232255,
+        "linux": 232256
+    },
+    "server_dll_location": {
+        "linux": "tf/bin/server_srv.so",
+        "linux64": "tf/bin/linux64/server_srv.so",
+        "windows": "tf/bin/server.dll",
+        "windows64": "tf/bin/x64/server.dll"
+    },
+    "server_dll_name": {
+        "linux": "server_srv.so",
+        "windows": "server.dll"
+    }
+}

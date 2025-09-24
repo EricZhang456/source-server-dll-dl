@@ -1,0 +1,22 @@
+{
+    "id": "cstrike",
+    "name": "Counter-Strike: Source",
+    "appid": 240,
+    "ds_appid": 232330,
+    "login": false,
+    "supports_64bit": true,
+    "dll_depot": {
+        "windows": 232335,
+        "linux": 232336
+    },
+    "server_dll_location": {
+        "linux": "cstrike/bin/server_srv.so",
+        "linux64": "cstrike/bin/linux64/server_srv.so",
+        "windows": "cstrike/bin/server.dll",
+        "windows64": "cstrike/bin/x64/server.dll"
+    },
+    "server_dll_name": {
+        "linux": "server_srv.so",
+        "windows": "server.dll"
+    }
+}

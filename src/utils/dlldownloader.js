@@ -1,5 +1,7 @@
 /** @import { GameManifest, DownloadResult } from "./manifest_typedef" */
 
+import fs from "fs/promises";
+import path from "path";
 import SteamUser from "steam-user";
 
 /**
@@ -7,6 +9,18 @@ import SteamUser from "steam-user";
  * @typedef {object} SignOnOptions
  * @property {string} [refreshToken] Steam refresh token.
  * @property {SteamUser.EOSType} [osType] OS type.
+ */
+
+/**
+ * @typedef {object} PlatformDownloadResult
+ * @property {string} platform
+ * @property {DownloadResult} result
+ */
+
+/**
+ * @typedef {object} GameDownloadResult
+ * @property {string} gameId
+ * @property {PlatformDownloadResult[]} result
  */
 
 /**
@@ -128,5 +142,45 @@ export default class DLLDownloader {
         }
 
         return returnObj;
+    }
+
+    /**
+     * Batch downloads all DLLs in an array of game manifests to a directory.
+     * @param {GameManifest[]} manifests An array of game manifests.
+     * @param {boolean} [organizeByDate=false] Whether to put the files in directories with the
+     *                                         date in UNIX timestamp as the directory name.
+     * @param {string} [targetDir] Optional path to directory to put the files.
+     * @param {string} [branchName="public"] Optional branch name.
+     * @returns {Promise<GameDownloadResult[]>}
+     */
+
+    async batchDownloadDlls(manifests, organizeByDate = false, targetDir, branchName = "public") {
+        const downloads = await Promise.all(manifests.map(async (obj) => {
+            const targetPlatforms = obj.supports_64bit ? Object.values(platforms)
+                                                       : [platforms.WINDOWS, platforms.LINUX];
+            const platformResults = await Promise.all(targetPlatforms.map(async (platform) => {
+                const downloadResult = await this.downloadDLL(obj, platform, branchName);
+                if (path) {
+                    let dateDir = "";
+                    if (organizeByDate) {
+                        dateDir = ((await this.getDepotUpdateDate(obj, platform, branchName)).getTime() / 1000).toString();
+                    }
+                    const dllTargetDir = path.join(targetDir, obj.id, dateDir, platform);
+                    await fs.mkdir(dllTargetDir, { recursive: true });
+                    await fs.writeFile(path.join(dllTargetDir, obj.server_dll_name[platform.replace("64", "")]),
+                        downloadResult.file);
+                    delete downloadResult.file;
+                }
+                return {
+                    platform: platform,
+                    result: downloadResult,
+                }
+            }));
+            return {
+                gameId: obj.id,
+                result: platformResults,
+            };
+        }));
+        return downloads;
     }
 }

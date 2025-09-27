@@ -1,0 +1,22 @@
+{
+    "id": "hl2mp",
+    "name": "Half-Life 2: Deathmatch",
+    "appid": 320,
+    "ds_appid": 232370,
+    "login": false,
+    "supports_64bit": true,
+    "dll_depot": {
+        "windows": 232375,
+        "linux": 232376
+    },
+    "server_dll_location": {
+        "linux": "hl2mp/bin/server_srv.so",
+        "linux64": "hl2mp/bin/linux64/server_srv.so",
+        "windows": "hl2mp/bin/server.dll",
+        "windows64": "hl2mp/bin/x64/server.dll"
+    },
+    "server_dll_name": {
+        "linux": "server_srv.so",
+        "windows": "server.dll"
+    }
+}

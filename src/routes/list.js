@@ -25,6 +25,7 @@ router.get("/", async (req, res) => {
         dlManifestFile = await fs.readFile(path.join(req.app.locals.dllDownloadDir, "manifest.json"), "utf-8");
     } catch (error) {
         if (error.code === "ENOENT") {
+            res.set("Content-Type", "text/plain");
             res.send("Manifest file has not been propagated yet.");
             return;
         }

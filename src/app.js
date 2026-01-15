@@ -4,7 +4,6 @@ import express, { json, urlencoded } from "express";
 import path from "path";
 import fs from "fs";
 import { fileURLToPath } from 'url';
-import cookieParser from "cookie-parser";
 import logger from "morgan";
 import schedule from "node-schedule";
 import { Liquid } from "liquidjs";
@@ -35,7 +34,6 @@ app.set("view engine", "liquid");
 app.use(logger("dev"));
 app.use(json());
 app.use(urlencoded({ extended: false }));
-app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 routes.forEach((value, key) => app.use(value, key));

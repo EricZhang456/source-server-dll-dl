@@ -1,7 +1,6 @@
 /** @import { DownloadManifest, GameManifest } from "./manifest_typedef"  */
 
 import fs from "fs/promises";
-import { existsSync } from "fs";
 import path from 'path';
 import { fileURLToPath } from 'url';
 import DLLDownloader from "./dlldownloader.js";
